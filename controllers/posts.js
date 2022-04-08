@@ -1,6 +1,9 @@
 import { PostModel } from "../models/PostModel.js";
 
 
+const PAGE_SIZE = 10;
+
+
 // GET DATA VỀ
 export const getPosts = async (req, res) => {
     try {
@@ -9,8 +12,24 @@ export const getPosts = async (req, res) => {
         //     content: 'test'
         // })
         // post.save();
-        const posts = await PostModel.find();
-        res.status(200).json(posts);
+        var page = parseInt(req.query.page); // lấy ra số lượng page mà bên client truyền lên.
+        page < 1 ? page = 1 : res.status(500).json({
+            code: "500",
+            error: "Vui lòng check lại paramater"
+        });
+        var soLuongBoQua = (page - 1) * PAGE_SIZE; // khoảng cách giữa các page, nếu client truyền lên là page 1. thì sẽ lấy 10 document đầu tiên, nếu clien truyền lên 2 sẽ lấy 10 document tiếp theo bắt đầu từ document số 10
+        await PostModel.find()
+        .skip(soLuongBoQua)
+        .limit(PAGE_SIZE)
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => {
+            res.status(500).json({
+                code: "500",
+                error: "Vui lòng check lại paramater"
+            })
+        })
     } catch (err) {
         res.status(500).json({ error: err })
     }
