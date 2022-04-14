@@ -63,6 +63,7 @@ export const loginUser = async (req, res) => {
         if (existUser === null) {
             return res.json({
                 success: false,
+                code: 401,
                 message: 'Tên tài khoản hoặc mật khẩu không chính xác.',
             })
         } else {
@@ -91,6 +92,7 @@ export const loginUser = async (req, res) => {
             return res.status(200).json({
                 message: "Authorization successful",
                 accessToken: token,
+                "code": 200,
                 refreshtoken: refreshtoken,
                 username: existUser.user
             });
@@ -130,6 +132,7 @@ export const refrestoken = async (req, res) => {
             );
             return res.status(200).json({
                 message: "Authorization successful",
+                code: 200,
                 accessToken: token,
                 refreshtoken: refreshtoken,
                 username: existUser.user
