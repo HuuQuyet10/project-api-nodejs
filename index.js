@@ -11,7 +11,7 @@ import users from "./routers/users.js";
 const URL = 'mongodb+srv://admin:HCqOnZC0MlbsEj9k@cluster0.p8fqm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 5000 || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true, limit: '30mb' }));

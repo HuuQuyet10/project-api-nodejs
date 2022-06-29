@@ -73,7 +73,7 @@ export const loginUser = async (req, res) => {
                     password: existUser.password,
                     userId: existUser._id
                 },
-                process.env.KEY_SECURITY,
+                "daylapassword",
                 {
                     expiresIn: "1h"
                 }
@@ -84,7 +84,7 @@ export const loginUser = async (req, res) => {
                     password: existUser.password,
                     userId: existUser._id
                 },
-                process.env.KEY_SECURITY,
+                "daylapassword",
                 {
                     expiresIn: "30d"
                 }
@@ -105,7 +105,7 @@ export const loginUser = async (req, res) => {
 export const refrestoken = async (req, res) => {
     try {
         const refreshtoken = req.headers.authorization;
-        const checkRefreshtoken = jwt.verify(refreshtoken, process.env.KEY_SECURITY);
+        const checkRefreshtoken = jwt.verify(refreshtoken, "daylapassword");
         const existUser = await UserModel.findOne({ 'mail': checkRefreshtoken.mail, 'password': checkRefreshtoken.password });
         if (existUser.mail == checkRefreshtoken.mail && existUser.password == checkRefreshtoken.password) {
             const token = jwt.sign(
@@ -114,7 +114,7 @@ export const refrestoken = async (req, res) => {
                     password: existUser.password,
                     userId: existUser._id
                 },
-                process.env.KEY_SECURITY,
+                "daylapassword",
                 {
                     expiresIn: "1h"
                 }
@@ -125,7 +125,7 @@ export const refrestoken = async (req, res) => {
                     password: existUser.password,
                     userId: existUser._id
                 },
-                process.env.KEY_SECURITY,
+                "daylapassword",
                 {
                     expiresIn: "1m"
                 }
