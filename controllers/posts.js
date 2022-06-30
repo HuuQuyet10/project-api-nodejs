@@ -13,10 +13,10 @@ export const getPosts = async (req, res) => {
         // })
         // post.save();
         var page = parseInt(req.query.page); // lấy ra số lượng page mà bên client truyền lên.
-        page < 1 ? page = 1 : res.status(500).json({
-            code: "500",
-            error: "Vui lòng check lại paramater"
-        });
+        // page < 1 ? page = 1 : res.status(500).json({
+        //     code: "500",
+        //     error: "Vui lòng check lại paramater"
+        // });
         var soLuongBoQua = (page - 1) * PAGE_SIZE; // khoảng cách giữa các page, nếu client truyền lên là page 1. thì sẽ lấy 10 document đầu tiên, nếu clien truyền lên 2 sẽ lấy 10 document tiếp theo bắt đầu từ document số 10
         await PostModel.find()
         .skip(soLuongBoQua)
@@ -40,8 +40,7 @@ export const getPostByid = async (req, res) => {
     try {
         const posts = req.params._id;
         const postsByid = await PostModel.findOne({_id: posts});
-        console.log(postsByid);
-        res.json(`id là ${posts}`)
+        res.json(postsByid)
     } catch (err) {
         res.status(500).json({ error: err });
     }
@@ -95,3 +94,18 @@ export const deletePost = async (req, res) => {
         res.status(500).json({ error: err });
     }
 };
+
+
+// TÌM KIẾM 1 POST THEO TÊN ĐƠN HÀNG (SEARCH PRODUCT BY NAME)
+
+export const searchNameProductor = async (req, res) => {
+    try {
+        const keyWordSearch = req.params.TenDonHang;
+        const posts = await PostModel.find({TenDonHang: {$regex: keyWordSearch} });
+        res.json(posts)
+    } catch (error) {
+        res.status(401).json({
+            err: error
+        })
+    }  
+}

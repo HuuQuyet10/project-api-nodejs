@@ -9,10 +9,10 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    user: {
+    nameUser: {
         type: String,
         required: true
-    }
+    },
 
 });
 

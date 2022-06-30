@@ -19,7 +19,7 @@ export const registerUser = async (req, res) => {
                 } else {
                     const users = new UserModel({
                         mail: req.body.mail,
-                        user: req.body.user,
+                        nameUser: req.body.nameUser,
                         password: md5(req.body.password)
                     });
                     users.save();
@@ -94,7 +94,7 @@ export const loginUser = async (req, res) => {
                 accessToken: token,
                 "code": 200,
                 refreshtoken: refreshtoken,
-                username: existUser.user
+                nameUser: existUser.nameUser
             });
         }
     } catch (error) {
@@ -135,7 +135,7 @@ export const refrestoken = async (req, res) => {
                 code: 200,
                 accessToken: token,
                 refreshtoken: refreshtoken,
-                username: existUser.user
+                nameUser: existUser.nameUser
             });
         } else {
             return res.status(401).json({
