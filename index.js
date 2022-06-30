@@ -2,13 +2,15 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
-import 'dotenv/config'
+import dotenv from "dotenv";
 
 import posts from "./routers/posts.js";
 import users from "./routers/users.js";
 
+dotenv.config();
 
-const URL = 'mongodb+srv://admin:Iv5gKS8ce9E7v2Ug@cluster0.osanm.mongodb.net/?retryWrites=true&w=majority'
+
+const URL = process.env.MONGO_URL;
 
 const app = express();
 const PORT = 5000 || 3000;
