@@ -12,15 +12,27 @@ export const getPosts = async (req, res) => {
         //     content: 'test'
         // })
         // post.save();
-        var page = parseInt(req.query.page); // lấy ra số lượng page mà bên client truyền lên.
-        // page < 1 ? page = 1 : res.status(500).json({
+        
+        let {page, size} = req.query;
+        if (!page) {
+            page = 1;
+        }
+        if (!size) {
+            size = 10;
+        }
+        // page < 1 || false || undefined ? page = 1 : res.status(500).json({
         //     code: "500",
         //     error: "Vui lòng check lại paramater"
         // });
+
+        const limit = parseInt(size);
+        const skip = (page - 1) * size;
+
+
         var soLuongBoQua = (page - 1) * PAGE_SIZE; // khoảng cách giữa các page, nếu client truyền lên là page 1. thì sẽ lấy 10 document đầu tiên, nếu clien truyền lên 2 sẽ lấy 10 document tiếp theo bắt đầu từ document số 10
         await PostModel.find()
-        .skip(soLuongBoQua)
-        .limit(PAGE_SIZE)
+        .limit(limit)
+        .skip(skip)
         .then(data => {
             res.status(200).json(data);
         })
