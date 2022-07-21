@@ -30,6 +30,7 @@ export const getPosts = async (req, res) => {
         await PostModel.find()
         .limit(limit)
         .skip(skip)
+        .sort({_id:-1})
         .then(data => {
             res.status(200).json(data);
         })
