@@ -92,19 +92,17 @@ export const updatePost = async (req, res) => {
 // XOÁ MỘT POST THEO ID
 export const deletePost = async (req, res) => {
     try {
-        const deletePost = req.params._id;
-        const post = await PostModel.deleteOne({ _id: deletePost });
-        await post.save();
-        const notideletePost = {
-            "code": 200,
-            "status": "Xoá thành công"
-        }
-        res.json(notideletePost)
+      const postId = req.params._id;
+      await PostModel.deleteOne({ _id: postId });
+      const notideletePost = {
+        code: 200,
+        status: "Xoá thành công"
+      };
+      res.json(notideletePost);
     } catch (err) {
-        res.status(500).json({ error: err });
+      res.status(500).json({ error: err.message });
     }
 };
-
 
 // TÌM KIẾM 1 POST THEO TÊN ĐƠN HÀNG (SEARCH PRODUCT BY NAME)
 
