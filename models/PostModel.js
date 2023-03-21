@@ -13,14 +13,6 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    SdtNguoiChuyenTien: {
-        type: String,
-        required: true
-    },
-    DiaChiNguoiChuyenTien: {
-        type: String,
-        required: true
-    },
     TenDonHang: {
         type: String,
         required: true
