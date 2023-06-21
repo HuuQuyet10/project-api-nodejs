@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 import posts from "./routers/posts.js";
 import users from "./routers/users.js";
+import listnft from "./routers/list-nft.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(cors());
 // });
 
 // http://localhost:5000/posts
+app.use('/api/v1/my-list-nft', listnft);
 app.use('/api/v1/posts', posts);
 app.use('/api/v1/user', users);
 
