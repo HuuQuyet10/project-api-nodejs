@@ -7,8 +7,6 @@ export const totalSum = async (req, res) => {
         items.forEach((item) => {
           totalValue += parseFloat(item.price)
         });
-        // console.log(items, "kkkkkkkk")
-    
         res.json({ totalValue });
       } catch (error) {
         console.error(error);

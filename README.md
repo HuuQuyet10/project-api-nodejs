@@ -15,7 +15,7 @@ npm install
 step 3:
 
 ```sh
-npm start
+npm start hoặc npm nodemon
 ```
 ```sh
 POST: { "mail": "mail@gmail.com", "password": "passtesss" }
