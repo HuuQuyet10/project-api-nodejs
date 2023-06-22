@@ -32,7 +32,7 @@ export const getListNft = async (req, res) => {
         .skip(skip)
         .sort({_id:-1})
         .then(data => {
-            const total = data.length === 0 ? 0 : data.length;
+            const total = data.length;
             const response = {
                 code: 200,
                 data: data || [],
