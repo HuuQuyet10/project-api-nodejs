@@ -29,6 +29,10 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    hasCheck: {
+        type: Boolean,
+        require: true
+    },
     attachment: String,
 }, { timestamps: true });
 

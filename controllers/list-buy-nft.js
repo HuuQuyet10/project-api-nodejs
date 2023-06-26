@@ -1,27 +1,28 @@
 import { ListBuyNftModel } from "../models/ListBuyNftModel.js";
+import { ListNftModel } from "../models/ListNftModel.js";
 const PAGE_SIZE = 10;
 
 
 // GET DATA VỀ
 export const getListBuyNft = async (req, res) => {
     try {
-        // const post = new PostModel({
-        //     title: 'test',
-        //     content: 'test'
+        // const post = new ListBuyNftModel({
+        //     name: 'test',
+        //     linkavatar: 'test',
+        //     description: "tesst",
+        //     totalSell: 'test',
+        //     authornft: 'test',
+        //     contractnft: 'test',
+        //     price: 'test',
+        //     hasCheck: true
         // })
         // post.save();
-        
         let {page, size} = req.query;
         if (!page) {
             page = 1;
         } else if (!size) {
             size = 10;
         }
-        // page < 1 || false || undefined ? page = 1 : res.status(500).json({
-        //     code: "500",
-        //     error: "Vui lòng check lại paramater"
-        // });
-
         const limit = parseInt(size);
         const skip = (page - 1) * size;
 
@@ -62,11 +63,28 @@ export const getNftByid = async (req, res) => {
 
 
 // TẠO MỘT NFT MỚI
+const checkDuplicateName = async (name) => {
+    try {
+        const existingPost = await ListNftModel.findOne({ name: name });
+        return existingPost !== null;
+    } catch (err) {
+        throw err;
+    }
+}
 export const createNft = async (req, res) => {
     try {
         const newBodyNft = req.body;
+        const hasDuplicateName = await checkDuplicateName(newBodyNft.name);
+        
+        if (hasDuplicateName) {
+            newBodyNft.hasCheck = false;
+        } else {
+            newBodyNft.hasCheck = true;
+        }
+
         const bodyNft = await new ListBuyNftModel(newBodyNft);
         await bodyNft.save();
+        
         const notiCreateNft = {
             "code": 200,
             "status": "Thêm thành công"
