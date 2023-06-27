@@ -66,15 +66,18 @@ export const sortDateDashboard = async (req, res) => {
       {
         $project: {
           _id: 0,
-          name: { $concat: ['Ngày ', { $substr: ['$_id', 8, 2] }] },
-          value: { $toString: '$count' },
+          name: {
+            $concat: [{ $substr: ["$_id", 8, 2] }, "/", { $substr: ["$_id", 5, 2] }],
+          },
+          value: { $toString: "$count" },
         },
       },
     ];
 
     const result = await ListNftModel.aggregate(pipeline);
+    const reversedResult = result.reverse();
 
-    res.json({ code: 200, data: result });
+    res.json({ code: 200, data: reversedResult });
   } catch (err) {
     // Handle error
   }
