@@ -74,7 +74,7 @@ export const sortDateDashboard = async (req, res) => {
 
     const result = await ListNftModel.aggregate(pipeline);
 
-    res.json(result);
+    res.json({ code: 200, data: result });
   } catch (err) {
     // Handle error
   }
