@@ -8,7 +8,7 @@ import posts from "./routers/posts.js";
 import users from "./routers/users.js";
 
 
-const URL = 'mongodb+srv://admin:HCqOnZC0MlbsEj9k@cluster0.p8fqm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const URL = 'mongodb+srv://eanh270:s5EtsJzCwltEhDTz@cluster0.tjxyx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 const app = express();
 const PORT = 5000 || 3000;
